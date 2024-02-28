@@ -1,0 +1,13 @@
+<app-navbar (toogleNavbarEmitter)="sidenav.toggle()" *ngIf="user$ | async" class="navbar"/>
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav">
+      <a mat-button routerLink="/warehouse" (click)="sidenav.toggle()">Magazyn</a>
+      <a mat-button routerLink="/form" (click)="sidenav.toggle()">Dodaj wpis</a>
+      <a mat-button routerLink="/entries" (click)="sidenav.toggle()">Wpisy</a>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <main>
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

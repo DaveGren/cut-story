@@ -1,0 +1,48 @@
+<mat-card>
+    <h1>Dodaj wpis</h1>
+    <form [formGroup]="entryForm" class="form" (ngSubmit)="onSubmit()">
+        
+        <mat-form-field>
+        <mat-label>Rodzaj dokumentu</mat-label>
+        <mat-select formControlName="docType">
+            <mat-option value="WZ">WZ</mat-option>
+            <mat-option value="PW">PW</mat-option>
+        </mat-select>
+        <mat-error *ngIf="entryForm.get('docType')?.hasError('required')">To pole jest wymagane</mat-error>
+        </mat-form-field>
+
+        
+        <mat-form-field *ngIf="entryForm.get('docType')?.value === 'PW'">
+        <mat-label>Dodaj informacje dot. dokumentu</mat-label>
+        <input matInput formControlName="sheetType" placeholder="Rodzaj">
+        </mat-form-field>
+    
+        <mat-form-field>
+        <mat-label>Grubość arkusza blachy</mat-label>
+        <input matInput formControlName="thickness" placeholder="Grubość">
+        <mat-error *ngIf="entryForm.get('thickness')?.hasError('required')">To pole jest wymagane</mat-error>
+        <mat-error *ngIf="entryForm.get('thickness')?.hasError('pattern')">Grubość powinna być większa od 0 i być liczbą całkowitą</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-label>Ilość arkuszy blachy</mat-label>
+        <input matInput formControlName="quantity" placeholder="Ilość">
+        <mat-error *ngIf="entryForm.get('quantity')?.hasError('required')">To pole jest wymagane</mat-error>
+        <mat-error *ngIf="entryForm.get('quantity')?.hasError('pattern')">Ilość powinna być większa od 0 i być liczbą całkowitą</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field>
+        <mat-label>Rozmiar arkuszy blachy</mat-label>
+        <input matInput formControlName="size" placeholder="Rozmiar">
+        <mat-error *ngIf="entryForm.get('size')?.hasError('required')">To pole jest wymagane</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+        <mat-label>Rodzaj arkusza blachy</mat-label>
+        <input matInput formControlName="sheetType" placeholder="Rodzaj">
+        <mat-error *ngIf="entryForm.get('sheetType')?.hasError('required')">To pole jest wymagane</mat-error>
+        </mat-form-field>
+    
+        <button mat-raised-button color="secondary" type="submit" [disabled]="entryForm.invalid">Dodaj</button>
+    </form>
+</mat-card>

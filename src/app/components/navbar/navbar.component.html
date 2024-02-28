@@ -1,0 +1,10 @@
+<mat-toolbar class="top-navbar" color="primary"> 
+    <button mat-icon-button class="mat-icon-button" (click)="toggleSidenav()">
+        <mat-icon>{{ isMenuOpen ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
+    <span class="navbar-tiitle">{{ title$ | async }}</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="mat-icon-button" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+    </button>
+</mat-toolbar>

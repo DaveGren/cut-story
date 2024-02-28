@@ -1,0 +1,17 @@
+.top-navbar {
+    height: 50px;
+
+    .navbar-tiitle{
+        padding-left: 20px;
+    }
+    .example-spacer {
+        flex: 1 1 auto;
+    }
+    .mat-icon-button {
+        border: none;
+    
+        :hover {
+            cursor: pointer;
+        }
+    }
+}

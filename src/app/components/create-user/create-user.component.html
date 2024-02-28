@@ -1,0 +1,21 @@
+<mat-card>
+    <h1>Utwórz konto</h1>
+    <form [formGroup]="loginForm" class="form" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" autocomplete="off" type="email" placeholder="Wpisz adres e-mail">
+        <mat-error *ngIf="loginForm.get('email')?.hasError('required')">Adres e-mail jest wymagany</mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.hasError('email')">Błędny adres e-mail</mat-error>
+        </mat-form-field>
+    
+        <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" autocomplete="off" type="password" placeholder="Wpisz hasło">
+        <mat-error *ngIf="loginForm.get('password')?.hasError('required')">Hasło jest wymagane</mat-error>
+        <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">Hasło musi mieć conajmniej 6 znaków</mat-error>
+        </mat-form-field>
+    
+        <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Utwórz</button>
+        <span class="form-hint">Masz już konto? Przejdź do strony <a routerLink="/login">logowania</a></span>
+    </form>
+</mat-card>
