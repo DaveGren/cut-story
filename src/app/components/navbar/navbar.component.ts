@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
@@ -8,7 +8,7 @@ import { Observable, of } from 'rxjs';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   @Output()
   toogleNavbarEmitter: EventEmitter<boolean> = new EventEmitter();
 
@@ -18,9 +18,11 @@ export class NavbarComponent {
   constructor(
     private service: AuthService,
     private router: Router,
-    ) {
-      this.title$ = this.service.title$;
-    }
+    ) {  }
+    
+  ngOnInit(): void {
+    this.title$ = this.service.title$;
+  }
   
   logout() {
     this.service.singOut();

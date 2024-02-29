@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -10,7 +9,9 @@ import { DataService } from '../../services/data.service';
 })
 export class FormComponent implements OnInit {
   entryForm: FormGroup;
-  
+  sheetTypes: Array<string> = [];
+  sheetSizes: Array<{view: string, value: string}> = [];
+
   constructor(private service: DataService, 
     private formBuilder: FormBuilder,
     private data: DataService
@@ -20,7 +21,7 @@ export class FormComponent implements OnInit {
       thickness: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
       quantity: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
       size: ['', [Validators.required]],
-      sheetType: ['', [Validators.required]],
+      type: ['', [Validators.required]],
       externalDocument: ['']
     });
   }
@@ -28,11 +29,14 @@ export class FormComponent implements OnInit {
   ngOnInit(): void {
     const data = this.data.fetchFormDataFromWarehouse();
 
+    this.sheetSizes = this.data.getSheetSizes();
+    this.sheetTypes = this.data.getSheetTypes();
+
     this.entryForm.patchValue({
       'docType': data?.docType,
       'thickness': data?.thickness,
       'size': data?.size,
-      'sheetType': data?.sheetType,
+      'type': data?.type,
       'externalDocument': data?.externalDocument 
     });
 

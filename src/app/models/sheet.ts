@@ -4,7 +4,7 @@ export interface Sheet {
     entryDate: Date;
     externalDocument?: string;	
     quantity: number;	
-    sheetType: string;	
+    type: string;	
     size: string;
     thickness: number;
     userEntry: string;

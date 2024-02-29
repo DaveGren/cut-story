@@ -9,7 +9,7 @@ import { DataService } from '../../services/data.service';
 })
 export class EntriesComponent implements OnInit {
   sheets: Sheet[] | any = [];
-  displayedColumns = ['docType', 'thickness', 'quantity', 'sheetType', 'externalDocument', 'entryDate', 'userEntry'];
+  displayedColumns = ['docType', 'thickness', 'quantity', 'type', 'externalDocument', 'entryDate', 'userEntry'];
 
   constructor(private data: DataService) {}
 

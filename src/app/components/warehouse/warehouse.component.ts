@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
   styleUrl: './warehouse.component.scss'
 })
 export class WarehouseComponent implements OnInit {
+  displayedColumns = ['size', 'thickness', 'quantity', 'type', 'reloadToForm'];
   sheets: Sheet[] | any = [];
-  displayedColumns = ['size', 'thickness', 'quantity', 'sheetType', 'reloadToForm'];
 
   constructor(
     private data: DataService,
@@ -20,6 +20,7 @@ export class WarehouseComponent implements OnInit {
   ngOnInit(): void {
     this.data.getWarehouse()
       .then(response => {
+        console.log(response);
         this.sheets = response.data;
     })
   }

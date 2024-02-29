@@ -10,7 +10,7 @@ import { NavigationStart, Router } from '@angular/router';
 export class AuthService {
   private supabase: SupabaseClient;
   user$ = new BehaviorSubject<User | null>(null)
-  title$: Subject<string> = new Subject();
+  title$: BehaviorSubject<string> = new BehaviorSubject('');
   
   constructor(private router: Router) {
     this.supabase = createClient(environment.supabase.url, environment.supabase.key)

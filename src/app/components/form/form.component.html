@@ -14,12 +14,13 @@
         
         <mat-form-field *ngIf="entryForm.get('docType')?.value === 'PW'">
         <mat-label>Dodaj informacje dot. dokumentu</mat-label>
-        <input matInput formControlName="sheetType" placeholder="Rodzaj">
+        <input matInput formControlName="externalDocument" placeholder="Rodzaj">
         </mat-form-field>
     
         <mat-form-field>
         <mat-label>Grubość arkusza blachy</mat-label>
         <input matInput formControlName="thickness" placeholder="Grubość">
+        <span *ngIf="entryForm.get('thickness')?.value" matPrefix class="prefix">#</span>
         <mat-error *ngIf="entryForm.get('thickness')?.hasError('required')">To pole jest wymagane</mat-error>
         <mat-error *ngIf="entryForm.get('thickness')?.hasError('pattern')">Grubość powinna być większa od 0 i być liczbą całkowitą</mat-error>
         </mat-form-field>
@@ -31,16 +32,30 @@
         <mat-error *ngIf="entryForm.get('quantity')?.hasError('pattern')">Ilość powinna być większa od 0 i być liczbą całkowitą</mat-error>
         </mat-form-field>
         
-        <mat-form-field>
+        <!-- <mat-form-field>
         <mat-label>Rozmiar arkuszy blachy</mat-label>
+        <mat-select formControlName="size">
+            @for (sheetSize of sheetSizes; track sheetSize){
+                <mat-option value="sheetSize?.value">{{ sheetSize?.view }}</mat-option>
+            }
+        </mat-select>
+        <mat-error *ngIf="entryForm.get('size')?.hasError('required')">To pole jest wymagane</mat-error>
+        </mat-form-field> -->
+
+        <mat-form-field>
+        <mat-label>Rozmiar arkuszy blachy (niestadardowy)</mat-label>
         <input matInput formControlName="size" placeholder="Rozmiar">
         <mat-error *ngIf="entryForm.get('size')?.hasError('required')">To pole jest wymagane</mat-error>
         </mat-form-field>
-
+        
         <mat-form-field>
         <mat-label>Rodzaj arkusza blachy</mat-label>
-        <input matInput formControlName="sheetType" placeholder="Rodzaj">
-        <mat-error *ngIf="entryForm.get('sheetType')?.hasError('required')">To pole jest wymagane</mat-error>
+        <mat-select formControlName="type">
+            @for (type of sheetTypes; track type){
+                <mat-option value="{{type}}">{{ type }}</mat-option>
+            }
+        </mat-select>
+        <mat-error *ngIf="entryForm.get('type')?.hasError('required')">To pole jest wymagane</mat-error>
         </mat-form-field>
     
         <button mat-raised-button color="secondary" type="submit" [disabled]="entryForm.invalid">Dodaj</button>
