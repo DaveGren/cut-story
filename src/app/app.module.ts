@@ -24,6 +24,8 @@ import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { WarehouseComponent } from './components/warehouse/warehouse.component';
 import { QualityNamePipe } from './pipes/quality-name.pipe';
+import { ToastrService, ToastrModule } from 'ngx-toastr';
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { QualityNamePipe } from './pipes/quality-name.pipe';
     FormComponent,
     CreateUserComponent,
     NavbarComponent,
-    QualityNamePipe
+    QualityNamePipe,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -52,9 +55,12 @@ import { QualityNamePipe } from './pipes/quality-name.pipe';
     MatFormFieldModule,
     MatIconModule,
     MatTableModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ToastrModule.forRoot()
   ],
-  providers: [DataService],
+  providers: [
+    DataService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

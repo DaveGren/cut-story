@@ -21,7 +21,7 @@ export class FormComponent implements OnInit {
     this.entryForm = this.formBuilder.group({
       docType: ['', [Validators.required]],
       thickness: [''],
-      materialOwner: ['Cut-Story', Validators.required],
+      materialOwner: ['CUT-STORY', Validators.required],
       quality: 1,
       quantity: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
       size: ['', [Validators.required]],
@@ -40,14 +40,14 @@ export class FormComponent implements OnInit {
       this.isSheet = false;
     }
 
-    if (data?.materialOwner !== 'Cut-Story' && !!data?.materialOwner){
+    if (data?.materialOwner !== 'CUT-STORY' && !!data?.materialOwner){
       this.isOurMaterial = false;
     }
     
     this.entryForm.patchValue({
       'docType': data?.docType,
       'thickness': data?.thickness_name,
-      'materialOwner': !!data?.materialOwner ? data.materialOwner : 'Cut-Story',
+      'materialOwner': !!data?.materialOwner ? data.materialOwner : 'CUT-STORY',
       'quantity': data?.total_quantity,
       'size': data?.size_name,
       'type': data?.type_name,
