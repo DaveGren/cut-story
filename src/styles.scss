@@ -1,4 +1,5 @@
-@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+@import 'ngx-toastr/toastr';
 
 body {
     margin: 0px;
@@ -10,4 +11,5 @@ body {
 
 .pointer {
     cursor: pointer;
+    margin: 0 5px;
 }

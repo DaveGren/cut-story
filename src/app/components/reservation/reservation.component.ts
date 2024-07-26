@@ -4,15 +4,15 @@ import { Router } from '@angular/router';
 
 import { DataService } from '../../services/data.service';
 import { Sheet } from '../../models/sheet';
-import { FormBuilder } from '@angular/forms';
+import { AbstractControl, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-warehouse',
-  templateUrl: './warehouse.component.html',
-  styleUrl: './warehouse.component.scss'
+  selector: 'app-reservation',
+  templateUrl: './reservation.component.html',
+  styleUrl: './reservation.component.scss'
 })
-export class WarehouseComponent implements OnInit {
-  displayedColumns = ['size', 'thickness', 'quantity', 'type', 'materialOwner', 'quality', 'surface', 'reloadToForm'];
+export class ReservationComponent implements OnInit {
+  displayedColumns = ['size', 'thickness', 'quantity', 'type', 'materialOwner', 'externalDocument', 'reloadToForm'];
   dataSource: MatTableDataSource<Sheet> = new MatTableDataSource<Sheet>;
   thicknessList: string[] = [];
   typeList: string[] = [];
@@ -48,8 +48,18 @@ export class WarehouseComponent implements OnInit {
     this.loadData();
   }
 
+  takeToProduction(element: any) {
+    this.data.takeToProduction(element)
+    .finally(() => setTimeout(() => this.router.navigate(['/warehouse']), 1000));
+  }
+
+  retrunToWarehouse(element: any) {
+    this.data.returnToWarehouse(element)
+      .finally(() => setTimeout(() => this.router.navigate(['/warehouse']), 1000));
+  }
+
   loadData() {
-    this.data.getWarehouse()
+    this.data.getReservations()
       .then(response => {
         this.dataSource.data = response.data;
         const thicknesses: string[] = this.dataSource.data
@@ -64,26 +74,5 @@ export class WarehouseComponent implements OnInit {
         this.materialOwnerList = [...new Set(owner)];
 
       });
-  }
-
-  reloadToForm(data: Sheet) {
-    this.router.navigate(['/form']);
-    this.data.setFormDataFromWarehouse(data);
-  }
-
-  applyFilter(value: any, type: string) {
-    this.dataSource.filter = `${type}: ${value}`;
-  }
-
-  removeFilter(type: any) {
-    if (type === 'thickness_name') {
-      this.formControl.controls['thickness_name'].setValue('');
-    }
-    if (type === 'type_name') {
-      this.formControl.controls['type_name'].setValue('');
-    }
-    if (type === 'material_owner_name') {
-      this.formControl.controls['material_owner_name'].setValue('');
-    }
   }
 }

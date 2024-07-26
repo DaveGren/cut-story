@@ -7,6 +7,7 @@ import { LoginComponent } from './components/login/login.component';
 import { WarehouseComponent } from './components/warehouse/warehouse.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { AuthGuard } from './guards/auth.guard'
+import { ReservationComponent } from './components/reservation/reservation.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,6 +28,11 @@ const routes: Routes = [
     path: 'form', 
     component: FormComponent,
     canActivate: [AuthGuard]
+  },
+  { 
+    path: 'reservation',
+    component: ReservationComponent,
+    canActivate: [AuthGuard] 
   },
   { 
     path: 'warehouse',

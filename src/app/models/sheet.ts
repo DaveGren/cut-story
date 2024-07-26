@@ -1,11 +1,17 @@
 export interface Sheet {
     id?: string;
-    docType: string;
-    entryDate: Date;
-    externalDocument?: string;	
-    quantity: number;	
-    type: string;	
+    thickness_name: string;
+    total_quantity: number;	
+    type_name: string;	
+    size_name: string;
+    quality: number;
+    quality_name: number;
     size: string;
-    thickness: number;
-    userEntry: string;
+    type: string;
+    material_owner_name: string;
+    materialOwner: string;
+    quantity: number;
+    thickness: string;
+    docType: string;
+    externalDocument?: string;
 }

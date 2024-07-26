@@ -9,7 +9,10 @@ import { DataService } from '../../services/data.service';
 })
 export class EntriesComponent implements OnInit {
   sheets: Sheet[] | any = [];
-  displayedColumns = ['docType', 'thickness', 'quantity', 'type', 'externalDocument', 'entryDate', 'userEntry'];
+  isSuperUser: boolean = false;
+  currentUser: string = '';
+  emailsWithPermissions: string[] = ['d.gren@cut-story.pl', 'r.kowalczyk@cut-story.pl'];
+  displayedColumns = ['docType', 'thickness', 'quantity', 'size', 'type', 'externalDocument', 'entryDate', 'userEntry'];
 
   constructor(private data: DataService) {}
 
@@ -17,6 +20,18 @@ export class EntriesComponent implements OnInit {
     this.data.getEntries()
       .then(response => {
         this.sheets = response.data;
-    })
+    });
+    this.checkIfSuperUser(this.data.getUserEmail())
   }
+
+  deleteEntry({id}: Sheet) {
+    this.data.deleteEntry(id);
+  }
+
+  checkIfSuperUser(userEmail: any) {
+    if(this.emailsWithPermissions.includes(userEmail)) {
+      this.displayedColumns.push('action');
+    }
+  }
+
 }

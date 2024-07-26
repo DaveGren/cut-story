@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -22,6 +23,7 @@ import { FormComponent } from './components/form/form.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { WarehouseComponent } from './components/warehouse/warehouse.component';
+import { QualityNamePipe } from './pipes/quality-name.pipe';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { WarehouseComponent } from './components/warehouse/warehouse.component';
     EntriesComponent,
     FormComponent,
     CreateUserComponent,
-    NavbarComponent
+    NavbarComponent,
+    QualityNamePipe
   ],
   imports: [
     BrowserModule,
@@ -44,6 +47,7 @@ import { WarehouseComponent } from './components/warehouse/warehouse.component';
     FormsModule,
     MatSidenavModule,
     MatCardModule,
+    MatRadioModule,
     MatToolbarModule,
     MatFormFieldModule,
     MatIconModule,

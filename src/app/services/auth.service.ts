@@ -3,6 +3,7 @@ import { SupabaseClient, User, createClient } from '@supabase/supabase-js';
 import { environment } from '../envirements/environment';
 import { BehaviorSubject, Subject, filter } from 'rxjs';
 import { NavigationStart, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,10 @@ export class AuthService {
   user$ = new BehaviorSubject<User | null>(null)
   title$: BehaviorSubject<string> = new BehaviorSubject('');
   
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private toaster: ToastrService
+  ) {
     this.supabase = createClient(environment.supabase.url, environment.supabase.key)
     
     this.router.events
@@ -40,6 +44,16 @@ export class AuthService {
       email,
       password
     })
+    .then(({ error }) => {
+      console.error(error);
+      
+      if(!error) {
+        this.toaster.success('Zalogowano');
+        this.router.navigate(['/warehouse'])
+      } else {
+        this.toaster.error('Wystąpił błąd logowania. Sprawdź login lub hasło');
+      }
+    });
   }
 
   async createUser(email: string, password: string) {
@@ -67,8 +81,10 @@ export class AuthService {
         return 'Wpisy'
       case '/form':
         return 'Dodaj wpis'
+      case '/reservation':
+        return 'Rezerwacja'
       default:
-        return 'Coś';
+        return '';
     }
   }
 }

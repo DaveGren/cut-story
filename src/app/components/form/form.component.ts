@@ -11,6 +11,8 @@ export class FormComponent implements OnInit {
   entryForm: FormGroup;
   sheetTypes: Array<string> = [];
   sheetSizes: Array<{view: string, value: string}> = [];
+  isSheet: boolean = true;
+  isOurMaterial: boolean = true;
 
   constructor(private service: DataService, 
     private formBuilder: FormBuilder,
@@ -18,7 +20,9 @@ export class FormComponent implements OnInit {
   ) {
     this.entryForm = this.formBuilder.group({
       docType: ['', [Validators.required]],
-      thickness: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
+      thickness: [''],
+      materialOwner: ['Cut-Story', Validators.required],
+      quality: 1,
       quantity: ['', [Validators.required, Validators.pattern(/^[1-9]\d*$/)]],
       size: ['', [Validators.required]],
       type: ['', [Validators.required]],
@@ -32,11 +36,21 @@ export class FormComponent implements OnInit {
     this.sheetSizes = this.data.getSheetSizes();
     this.sheetTypes = this.data.getSheetTypes();
 
+    if (Number(data?.thickness) === -1){
+      this.isSheet = false;
+    }
+
+    if (data?.materialOwner !== 'Cut-Story' && !!data?.materialOwner){
+      this.isOurMaterial = false;
+    }
+    
     this.entryForm.patchValue({
       'docType': data?.docType,
-      'thickness': data?.thickness,
-      'size': data?.size,
-      'type': data?.type,
+      'thickness': data?.thickness_name,
+      'materialOwner': !!data?.materialOwner ? data.materialOwner : 'Cut-Story',
+      'quantity': data?.total_quantity,
+      'size': data?.size_name,
+      'type': data?.type_name,
       'externalDocument': data?.externalDocument 
     });
 
@@ -44,6 +58,9 @@ export class FormComponent implements OnInit {
   }
 
   async onSubmit() {
-    await this.service.addEntry(this.entryForm.value);
+    if (!this.entryForm.controls['thickness'].value) {
+      this.entryForm.controls['thickness'].setValue('-1')
+    }
+    await this.data.addEntry(this.entryForm.value);
   }
 }

@@ -2,6 +2,7 @@
 <mat-sidenav-container class="sidenav-container">
     <mat-sidenav #sidenav autoFocus="false" mode="over" [(opened)]="isMenuOpen" class="sidenav">
       <a mat-button routerLink="/warehouse" (click)="sidenav.toggle()">Magazyn</a>
+      <a mat-button routerLink="/reservation" (click)="sidenav.toggle()">Rezerwacja</a>
       <a mat-button routerLink="/form" (click)="sidenav.toggle()">Dodaj wpis</a>
       <a mat-button routerLink="/entries" (click)="sidenav.toggle()">Wpisy</a>
     </mat-sidenav>
